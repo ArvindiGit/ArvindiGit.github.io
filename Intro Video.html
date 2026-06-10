@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Arvind Prajapati — Intro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;0,800;1,400&amp;display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; height: 100%; background: #0a0a0a; overflow: hidden; }
+  #root { position: absolute; inset: 0; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="animations.jsx"></script>
+<script type="text/babel" src="iv-components.jsx"></script>
+<script type="text/babel" src="iv-scenes.jsx"></script>
+
+<script type="text/babel">
+  // Saved look: blue accent, scanlines off (tweakable from the portfolio page)
+  function IntroApp() {
+    const params = new URLSearchParams(window.location.search);
+    const accent = params.get('accent') || '#6CA0DC';
+    const scanlines = params.get('scanlines') === 'true';
+    const controls = params.get('controls') !== '0';
+    return (
+      <div style={{ position: 'absolute', inset: 0, '--iv-accent': accent }}>
+        <Stage width={1920} height={1080} duration={46} background="#0b0b0a" persistKey="arvind-intro" controls={controls}>
+          <IVFilm scanlines={scanlines}></IVFilm>
+        </Stage>
+      </div>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById('root')).render(<IntroApp></IntroApp>);
+</script>
+</body>
+</html>

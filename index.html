@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Arvind Prajapati — Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,700&amp;display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="portfolio.css" />
+</head>
+<body>
+
+<div class="frame">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" data-screen-label="Sidebar">
+    <h1 class="brand-name">Arvind<br />Prajapati</h1>
+    <p class="brand-role">Software Engineer</p>
+
+    <nav class="side-nav" id="sideNav">
+      <a href="#about"><span class="tick"></span>About</a>
+      <a href="#work"><span class="tick"></span>Work</a>
+      <a href="#experience"><span class="tick"></span>Experience</a>
+      <a href="#ai"><span class="tick"></span>AI-Powered Dev</a>
+      <a href="#skills"><span class="tick"></span>Skills</a>
+      <a href="#education"><span class="tick"></span>Education</a>
+      <a href="#contact"><span class="tick"></span>Contact</a>
+    </nav>
+
+    <div class="side-foot">
+      <p class="foot-label">// LINKS</p>
+      <a href="https://www.linkedin.com/in/arvind-prajapati-68954233a/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/ArvindiGit" target="_blank" rel="noopener">GitHub</a>
+      <a href="uploads/resume.pdf" target="_blank">Resume</a>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+
+    <!-- HERO / ABOUT -->
+    <section class="section hero" id="about" data-screen-label="About">
+      <p class="kicker">About me</p>
+      <h1>I build clean, working software — and I <em>think with AI</em>.</h1>
+      <p class="hero-sub">Software engineer with nearly two years of hands-on experience on an engineering team, building and supporting production web applications in React and JavaScript.</p>
+      <div class="hero-meta">
+        <span class="dot"></span>
+        <span>Available for new opportunities · Deoria, Uttar Pradesh, India</span>
+      </div>
+
+      <div class="intro-video reveal">
+        <iframe id="introVideoFrame" src="Intro%20Video.html?controls=0" title="Intro video — Arvind Prajapati" allow="autoplay"></iframe>
+      </div>
+      <p class="photo-caption iv-caption">// 46-second intro · plays on loop</p>
+    </section>
+
+    <!-- STORY -->
+    <section class="section" data-screen-label="Story">
+      <p class="kicker">The story</p>
+
+      <div class="story-row reveal">
+        <div>
+          <h3>Where it started.</h3>
+          <p>I'm from Deoria, Uttar Pradesh. I taught myself to build for the web — HTML, CSS, JavaScript — and kept going until the things I made actually worked, reliably, for real people.</p>
+          <p>Alongside work, I'm pursuing a B.Sc. in Computer Science, Mathematics &amp; Physics, keeping the fundamentals sharp while I ship.</p>
+        </div>
+        <div class="photo-stack">
+          <image-slot id="photo-portrait" src="images/arvind.jpeg" style="width: 100%; height: 320px;" shape="rounded" radius="16" placeholder="Drop a photo of you"></image-slot>
+          <p class="photo-caption">// that's me</p>
+        </div>
+      </div>
+
+      <div class="story-row flip reveal">
+        <div class="photo-stack">
+          <image-slot id="photo-work" style="width: 100%; aspect-ratio: 560 / 318;" shape="rounded" radius="16" placeholder="Drop a desk / workspace photo"></image-slot>
+          <p class="photo-caption">// where the work happens</p>
+        </div>
+        <div>
+          <h3>Then it got real.</h3>
+          <p>In July 2024 I joined Techindo Systems in Navi Mumbai as a Software Engineer Trainee. Production code, real deadlines, code review — the full product lifecycle, from feature build to ongoing support.</p>
+          <p>Two years in, I'm comfortable owning tasks end-to-end and delivering to a professional standard, on time.</p>
+        </div>
+      </div>
+
+      <div class="story-row reveal">
+        <div>
+          <h3>What drives me.</h3>
+          <p>I don't just build with AI — I think with it. Automating repetitive work, mapping product roadmaps, defining core features, analyzing competitors. That frees me to focus on the problems that actually move a product forward.</p>
+        </div>
+        <div class="photo-stack">
+          <div class="ai-loop-frame">
+            <iframe id="aiLoopFrame" src="AI%20Loop.html" title="AI neural-network loop"></iframe>
+          </div>
+          <p class="photo-caption">// thinking with machines</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORK / PROJECTS -->
+    <section class="section" id="work" data-screen-label="Work">
+      <p class="kicker">Selected work</p>
+
+      <!-- Featured: Nuboplan -->
+      <article class="project featured reveal">
+        <div class="project-shot">
+          <image-slot id="shot-nuboplan" style="width: 100%; height: 360px;" shape="rounded" radius="14" placeholder="Drop a Nuboplan screenshot"></image-slot>
+        </div>
+        <div class="project-head">
+          <span class="project-index">01</span>
+          <div>
+            <h3>Nuboplan</h3>
+            <p class="project-role">Workspace management platform · Aug 2025 — Present · Techindo Systems</p>
+          </div>
+          <a class="project-live" href="https://www.nuboplan.com/" target="_blank" rel="noopener">nuboplan.com ↗</a>
+        </div>
+        <p class="project-desc">A Jira/Notion-style platform for team collaboration and project tracking — my most impactful project to date. I architected and built the Dev Console (dev-console.nuboplan.com) from the ground up.</p>
+        <ul class="xp-points">
+          <li>Built complex UI workflows for task management, team collaboration, and project tracking.</li>
+          <li>Implemented scalable frontend architecture in React.js with efficient state management.</li>
+          <li>Integrated real-time features for seamless workspace collaboration.</li>
+        </ul>
+        <div class="chip-row project-stack">
+          <span class="chip">React.js</span>
+          <span class="chip">JavaScript</span>
+          <span class="chip">REST APIs</span>
+          <span class="chip">State Management</span>
+        </div>
+      </article>
+
+      <!-- Other projects -->
+      <div class="project-grid">
+        <article class="project card reveal">
+          <image-slot id="shot-earthink" fit="contain" style="width: 100%; height: 180px; background: var(--bg);" shape="rounded" radius="12" placeholder="Earth &amp; Ink screenshot"></image-slot>
+          <div class="project-head">
+            <span class="project-index">02</span>
+            <div>
+              <h3>Earth &amp; Ink</h3>
+              <p class="project-role">CMS-driven blog · May 2026 — Present</p>
+            </div>
+          </div>
+          <p class="project-desc">Full blog frontend in Next.js, fully driven by a headless CMS — shipped in under 5 days using AI-accelerated development, with sitemap.xml for SEO.</p>
+          <div class="card-foot">
+            <div class="chip-row"><span class="chip">Next.js</span></div>
+            <a class="project-live" href="https://earthandink.techind.co/" target="_blank" rel="noopener">Live ↗</a>
+          </div>
+        </article>
+
+        <article class="project card reveal">
+          <image-slot id="shot-fpm" style="width: 100%; height: 180px;" shape="rounded" radius="12" placeholder="FPM Techind screenshot"></image-slot>
+          <div class="project-head">
+            <span class="project-index">03</span>
+            <div>
+              <h3>FPM Techind</h3>
+              <p class="project-role">Frontend product module · Techindo Systems</p>
+            </div>
+          </div>
+          <p class="project-desc">Complete frontend for an internal product module — pixel-perfect, responsive components with a modular architecture, delivered on tight deadlines.</p>
+          <div class="card-foot">
+            <div class="chip-row"><span class="chip">React.js</span><span class="chip">CSS3</span></div>
+            <a class="project-live" href="https://fpm.techind.co" target="_blank" rel="noopener">Live ↗</a>
+          </div>
+        </article>
+
+        <article class="project card reveal">
+          <image-slot id="shot-yorl" style="width: 100%; height: 180px;" shape="rounded" radius="12" placeholder="Yorl.io screenshot"></image-slot>
+          <div class="project-head">
+            <span class="project-index">04</span>
+            <div>
+              <h3>Yorl.io Dev Console</h3>
+              <p class="project-role">Developer platform · Techindo Systems</p>
+            </div>
+          </div>
+          <p class="project-desc">Frontend architecture and UX for a developer-focused platform — intuitive workflows over complex operations, REST API integration, real-time data flows.</p>
+          <div class="card-foot">
+            <div class="chip-row"><span class="chip">React.js</span><span class="chip">REST APIs</span></div>
+            <a class="project-live" href="https://console-dev.yorl.io" target="_blank" rel="noopener">Live ↗</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="section" id="experience" data-screen-label="Experience">
+      <p class="kicker">Experience</p>
+
+      <div class="xp-item reveal">
+        <div class="xp-when">Jul 2024 —<br />May 2026</div>
+        <div class="xp-body">
+          <h3>Software Engineer Trainee</h3>
+          <p class="xp-org">Techindo Systems Pvt. Ltd. · Navi Mumbai, Maharashtra</p>
+          <p>Contributed to the Engineering team's development goals across the full product lifecycle, from feature build to ongoing support.</p>
+          <ul class="xp-points">
+            <li>Built and maintained responsive web interfaces using React and JavaScript, translating designs into reliable UI components.</li>
+            <li>Managed assigned tasks independently and consistently delivered to a professional standard within deadlines.</li>
+            <li>Collaborated through Git and GitHub for version control and code review alongside fellow engineers.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI-POWERED DEV -->
+    <section class="section" id="ai" data-screen-label="AI-Powered Dev">
+      <p class="kicker">AI-powered dev</p>
+      <div class="ai-card reveal">
+        <p class="prompt-line">arvind@dev:~$ how I work<span class="caret"></span></p>
+        <blockquote>Ships production projects faster with modern AI coding tools — backed by <em>solid engineering fundamentals</em> for clean, working software.</blockquote>
+        <p>AI is my thinking partner, not a crutch. It handles the repetitive work; I handle the judgment — architecture, trade-offs, and the details that make software feel finished.</p>
+        <div class="chip-row">
+          <span class="chip lead">Claude</span>
+          <span class="chip lead">Codex</span>
+          <span class="chip lead">Antigravity</span>
+          <span class="chip lead">GitHub Copilot</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="section" id="skills" data-screen-label="Skills">
+      <p class="kicker">Skills</p>
+      <div class="skill-groups reveal">
+        <div class="skill-group">
+          <h3>Languages</h3>
+          <div class="chip-row">
+            <span class="chip">JavaScript</span>
+            <span class="chip">HTML</span>
+            <span class="chip">CSS</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Frameworks &amp; Libraries</h3>
+          <div class="chip-row">
+            <span class="chip">React.js</span>
+            <span class="chip">Next.js</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Also worked with</h3>
+          <div class="chip-row">
+            <span class="chip">React Native</span>
+            <span class="chip">Node.js</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Tools &amp; Practices</h3>
+          <div class="chip-row">
+            <span class="chip">Git</span>
+            <span class="chip">GitHub</span>
+            <span class="chip">Version Control</span>
+            <span class="chip">Code Review</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section class="section" id="education" data-screen-label="Education">
+      <p class="kicker">Education</p>
+
+      <div class="edu-item reveal">
+        <div class="edu-when">2023 — now</div>
+        <div class="edu-body">
+          <h3>B.Sc. — Computer Science, Mathematics &amp; Physics</h3>
+          <p>U.P. Rajarshi Tandon Open University (UPRTOU), Prayagraj</p>
+          <p class="edu-note">First year completed · Dec 2023 · in progress</p>
+        </div>
+      </div>
+
+      <div class="edu-item reveal">
+        <div class="edu-when">2023</div>
+        <div class="edu-body">
+          <h3>Intermediate (Class XII) — Science (PCM)</h3>
+          <p>U.P. Board (UPMSP) · Shri Devdhari Yadav Inter College, Deoria</p>
+        </div>
+      </div>
+
+      <div class="edu-item reveal">
+        <div class="edu-when">2021</div>
+        <div class="edu-body">
+          <h3>High School (Class X)</h3>
+          <p>U.P. Board (UPMSP) · Ram Kanhaiya H.S.S., Haraiya Basantpur, Deoria</p>
+          <p class="edu-note">~84% · 505/600</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section contact" id="contact" data-screen-label="Contact">
+      <p class="kicker">Contact</p>
+      <h2>Let's build something that works.</h2>
+      <p class="contact-sub">I'm open to front-end and full-stack roles. The fastest way to reach me is email — I reply quickly.</p>
+
+      <div class="contact-links">
+        <a href="mailto:arvindprajapati2569@gmail.com">
+          <span class="cl-label">Email</span>
+          <span class="cl-value">arvindprajapati2569@gmail.com</span>
+          <span class="cl-arrow">→</span>
+        </a>
+        <a href="tel:+917706956735">
+          <span class="cl-label">Phone</span>
+          <span class="cl-value">+91 77069 56735</span>
+          <span class="cl-arrow">→</span>
+        </a>
+        <a href="https://www.linkedin.com/in/arvind-prajapati-68954233a/" target="_blank" rel="noopener">
+          <span class="cl-label">LinkedIn</span>
+          <span class="cl-value">in/arvind-prajapati</span>
+          <span class="cl-arrow">→</span>
+        </a>
+        <a href="https://github.com/ArvindiGit" target="_blank" rel="noopener">
+          <span class="cl-label">GitHub</span>
+          <span class="cl-value">github.com/ArvindiGit</span>
+          <span class="cl-arrow">→</span>
+        </a>
+        <a href="uploads/resume.pdf" target="_blank">
+          <span class="cl-label">Resume</span>
+          <span class="cl-value">Download PDF</span>
+          <span class="cl-arrow">→</span>
+        </a>
+      </div>
+
+      <div class="colophon">
+        <span>© 2026 Arvind Prajapati</span>
+        <span>Deoria, UP · IST (UTC+5:30)</span>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="image-slot.js"></script>
+
+<script>
+  // Scroll-spy for the side nav
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('#sideNav a'));
+    var sections = links.map(function (a) {
+      return document.querySelector(a.getAttribute('href'));
+    });
+
+    function spy() {
+      var pos = window.scrollY + window.innerHeight * 0.35;
+      var current = 0;
+      for (var i = 0; i < sections.length; i++) {
+        if (sections[i] && sections[i].offsetTop <= pos) current = i;
+      }
+      links.forEach(function (a, i) {
+        a.classList.toggle('active', i === current);
+      });
+    }
+    window.addEventListener('scroll', spy, { passive: true });
+    spy();
+  })();
+
+  // Reveal-on-scroll (fail-safe: never leave content hidden)
+  (function () {
+    var els = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+    var ioFired = false;
+
+    function showInViewport() {
+      els.forEach(function (el) {
+        if (el.classList.contains('in')) return;
+        var r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('in');
+      });
+    }
+
+    function showAll() {
+      els.forEach(function (el) { el.classList.add('in'); });
+    }
+
+    var io = null;
+    try {
+      io = new IntersectionObserver(function (entries) {
+        ioFired = true;
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      els.forEach(function (el) { io.observe(el); });
+    } catch (err) {
+      showAll();
+    }
+
+    // Immediately reveal anything already on screen
+    showInViewport();
+
+    // If IO never fires (some embedded contexts), fall back entirely
+    setTimeout(function () {
+      if (!ioFired) {
+        if (io) io.disconnect();
+        showAll();
+      }
+    }, 800);
+
+    // Belt-and-braces: reveal on scroll too
+    window.addEventListener('scroll', function () {
+      if (!ioFired) showInViewport();
+    }, { passive: true });
+  })();
+</script>
+
+<!-- Tweaks panel -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="portfolio-tweaks.jsx"></script>
+
+</body>
+</html>
