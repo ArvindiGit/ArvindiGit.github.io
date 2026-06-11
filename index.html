@@ -351,6 +351,85 @@
     spy();
   })();
 
+  // Cursor trail effect (glowing particles that fade behind the cursor)
+  (function () {
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var canvas = document.createElement('canvas');
+    canvas.id = 'cursorTrail';
+    document.body.appendChild(canvas);
+    var ctx = canvas.getContext('2d');
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+
+    function accentRGB() {
+      var hex = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+      var n = parseInt(hex.slice(1), 16);
+      if (isNaN(n)) return [108, 160, 220];
+      return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+    }
+
+    var particles = [];
+    var lastX = null, lastY = null;
+
+    document.addEventListener('mousemove', function (e) {
+      var x = e.clientX, y = e.clientY;
+      if (lastX === null) { lastX = x; lastY = y; }
+      var dist = Math.hypot(x - lastX, y - lastY);
+      // spawn particles along the movement path, density scaled by speed
+      var steps = Math.min(6, Math.max(1, Math.round(dist / 9)));
+      var rgb = accentRGB();
+      for (var i = 0; i < steps; i++) {
+        var f = i / steps;
+        particles.push({
+          x: lastX + (x - lastX) * f + (Math.random() - 0.5) * 5,
+          y: lastY + (y - lastY) * f + (Math.random() - 0.5) * 5,
+          vx: (Math.random() - 0.5) * 0.7,
+          vy: (Math.random() - 0.5) * 0.7 - 0.25,
+          r: 1.6 + Math.random() * 2.6,
+          life: 1,
+          decay: 0.018 + Math.random() * 0.02,
+          rgb: rgb
+        });
+      }
+      if (particles.length > 220) particles.splice(0, particles.length - 220);
+      lastX = x; lastY = y;
+    }, { passive: true });
+
+    (function tick() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (var i = particles.length - 1; i >= 0; i--) {
+        var p = particles[i];
+        p.life -= p.decay;
+        if (p.life <= 0) { particles.splice(i, 1); continue; }
+        p.x += p.vx;
+        p.y += p.vy;
+        var alpha = p.life * p.life; // ease-out fade
+        var radius = p.r * p.life;
+        // soft glow
+        var g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, radius * 4);
+        g.addColorStop(0, 'rgba(' + p.rgb[0] + ',' + p.rgb[1] + ',' + p.rgb[2] + ',' + (alpha * 0.35).toFixed(3) + ')');
+        g.addColorStop(1, 'rgba(' + p.rgb[0] + ',' + p.rgb[1] + ',' + p.rgb[2] + ',0)');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, radius * 4, 0, Math.PI * 2);
+        ctx.fill();
+        // bright core
+        ctx.fillStyle = 'rgba(' + p.rgb[0] + ',' + p.rgb[1] + ',' + p.rgb[2] + ',' + alpha.toFixed(3) + ')';
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      requestAnimationFrame(tick);
+    })();
+  })();
+
   // Reveal-on-scroll (fail-safe: never leave content hidden)
   (function () {
     var els = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
@@ -408,6 +487,7 @@
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 <script type="text/babel" src="tweaks-panel.jsx"></script>
 <script type="text/babel" src="portfolio-tweaks.jsx"></script>
+<script src="text-particles.js"></script>
 
 </body>
 </html>

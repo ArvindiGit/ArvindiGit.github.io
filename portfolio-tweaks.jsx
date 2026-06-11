@@ -5,7 +5,9 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "accent": "#6CA0DC",
   "theme": "light",
   "fonts": "grotesk",
-  "density": "regular"
+  "density": "regular",
+  "cursor": "on",
+  "herofx": "on"
 }/*EDITMODE-END*/;
 
 function accentInk(hex, dark) {
@@ -27,6 +29,8 @@ function PortfolioTweaks() {
     root.setAttribute('data-theme', t.theme);
     root.setAttribute('data-fonts', t.fonts);
     root.setAttribute('data-density', t.density);
+    root.setAttribute('data-cursor', t.cursor);
+    root.setAttribute('data-herofx', t.herofx);
     // Keep the intro video's accent in sync
     const iv = document.getElementById('introVideoFrame');
     if (iv) {
@@ -49,6 +53,10 @@ function PortfolioTweaks() {
                   onChange={(v) => setTweak('accent', v)} />
       <TweakToggle label="Dark mode" value={t.theme === 'dark'}
                    onChange={(v) => setTweak('theme', v ? 'dark' : 'light')} />
+      <TweakToggle label="Cursor trail" value={t.cursor === 'on'}
+                   onChange={(v) => setTweak('cursor', v ? 'on' : 'off')} />
+      <TweakToggle label="Headline particles" value={t.herofx === 'on'}
+                   onChange={(v) => setTweak('herofx', v ? 'on' : 'off')} />
       <TweakSection label="Type & layout" />
       <TweakRadio label="Fonts" value={t.fonts}
                   options={['grotesk', 'editorial']}
