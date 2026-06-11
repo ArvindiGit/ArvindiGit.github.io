@@ -507,6 +507,8 @@ a { color: inherit; }
 
 .project.card:hover { border-color: var(--accent); transform: translateY(-3px); }
 
+.project-grid { perspective: 900px; }
+
 .project.card image-slot { margin-bottom: 18px; }
 
 .project.card .project-head { gap: 12px; margin-bottom: 10px; grid-template-columns: auto 1fr; }
@@ -594,7 +596,7 @@ a { color: inherit; }
   padding: 20px 4px;
   border-top: 1px solid var(--line);
   text-decoration: none;
-  transition: padding 0.25s ease, background 0.25s ease;
+  transition: padding 0.25s ease, background 0.25s ease, transform 0.3s ease;
 }
 
 .contact-links a:last-child { border-bottom: 1px solid var(--line); }

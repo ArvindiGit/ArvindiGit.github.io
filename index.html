@@ -279,7 +279,7 @@
         <div class="edu-body">
           <h3>High School (Class X)</h3>
           <p>U.P. Board (UPMSP) · Ram Kanhaiya H.S.S., Haraiya Basantpur, Deoria</p>
-          <p class="edu-note">~84% · 505/600</p>
+          <p class="edu-note" data-countup>~84% · 505/600</p>
         </div>
       </div>
     </section>
@@ -511,6 +511,93 @@
     setTimeout(function () {
       kickers.forEach(function (k) { markIn(k); });
     }, 3000);
+  })();
+
+  // Magnetic pull on contact links
+  (function () {
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    document.querySelectorAll('.contact-links a').forEach(function (link) {
+      link.addEventListener('mousemove', function (e) {
+        var r = link.getBoundingClientRect();
+        var dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
+        var dy = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
+        link.style.transform = 'translate(' + (dx * 6).toFixed(1) + 'px,' + (dy * 4).toFixed(1) + 'px)';
+      });
+      link.addEventListener('mouseleave', function () {
+        link.style.transform = '';
+      });
+    });
+  })();
+
+  // Subtle 3D tilt on project cards
+  (function () {
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    document.querySelectorAll('.project.card').forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        var r = card.getBoundingClientRect();
+        var dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
+        var dy = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
+        card.style.transform =
+          'perspective(700px) rotateX(' + (-dy * 4).toFixed(2) + 'deg)' +
+          ' rotateY(' + (dx * 5).toFixed(2) + 'deg) translateY(-3px)';
+      });
+      card.addEventListener('mouseleave', function () {
+        card.style.transform = '';
+      });
+    });
+  })();
+
+  // Count-up numbers (elements marked data-countup)
+  (function () {
+    var els = document.querySelectorAll('[data-countup]');
+    if (!els.length) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function animate(el) {
+      var parts = el.textContent.split(/(\d+)/);
+      var spans = parts.map(function (p) {
+        var s = document.createElement('span');
+        s.textContent = /^\d+$/.test(p) ? '0' : p;
+        if (/^\d+$/.test(p)) s.dataset.target = p;
+        return s;
+      });
+      el.textContent = '';
+      spans.forEach(function (s) { el.appendChild(s); });
+      var t0 = null;
+      var DUR = 1200;
+      function frame(now) {
+        if (t0 === null) t0 = now;
+        var f = Math.min(1, (now - t0) / DUR);
+        var ease = 1 - Math.pow(1 - f, 3);
+        spans.forEach(function (s) {
+          if (s.dataset.target) s.textContent = Math.round(+s.dataset.target * ease);
+        });
+        if (f < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+      // fail-safe: snap to final values regardless of rAF throttling
+      setTimeout(function () {
+        spans.forEach(function (s) {
+          if (s.dataset.target) s.textContent = s.dataset.target;
+        });
+      }, DUR + 300);
+    }
+
+    if (reduce) return; // leave static text as-is
+
+    try {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            animate(e.target);
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.6 });
+      els.forEach(function (el) { io.observe(el); });
+    } catch (err) { /* leave static */ }
   })();
 
   // Reveal-on-scroll (fail-safe: never leave content hidden)
