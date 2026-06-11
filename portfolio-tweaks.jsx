@@ -22,27 +22,51 @@ function accentInk(hex, dark) {
 function PortfolioTweaks() {
   const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
 
+  const mountAt = React.useRef(Date.now());
+  const lastApplied = React.useRef(null);
   React.useEffect(() => {
     const root = document.documentElement;
-    root.style.setProperty('--accent', t.accent);
-    root.style.setProperty('--accent-ink', accentInk(t.accent, t.theme === 'dark'));
-    root.setAttribute('data-theme', t.theme);
     root.setAttribute('data-fonts', t.fonts);
     root.setAttribute('data-density', t.density);
     root.setAttribute('data-cursor', t.cursor);
     root.setAttribute('data-herofx', t.herofx);
-    // Keep the intro video's accent in sync
-    const iv = document.getElementById('introVideoFrame');
-    if (iv) {
-      const want = 'Intro%20Video.html?controls=0&accent=' + encodeURIComponent(t.accent);
-      if (iv.getAttribute('src') !== want) iv.setAttribute('src', want);
+
+    // Theme + accent are shared with the on-page theme controls
+    // (window.__applySitePrefs also keeps the video iframes in sync).
+    // Two guards against state thrash:
+    //  1. Settling window (~1.5s after mount): tweak-state changes here are
+    //     async persistence/host syncs, not user actions — absorb them and
+    //     let a saved on-page preference win (apply without persisting only
+    //     if no on-page preference exists).
+    //  2. After that, only apply when theme/accent VALUES actually changed
+    //     (identity-only re-runs of the effect must not re-assert state).
+    let hasSite = false;
+    try { hasSite = !!localStorage.getItem('arvind-site-prefs'); } catch (e) {}
+
+    const vals = { theme: t.theme, accent: t.accent };
+    const changed = !lastApplied.current ||
+      lastApplied.current.theme !== vals.theme ||
+      lastApplied.current.accent !== vals.accent;
+
+    const applySite = (persist) => {
+      if (window.__applySitePrefs) {
+        window.__applySitePrefs(vals.theme, vals.accent, persist);
+      } else {
+        root.style.setProperty('--accent', vals.accent);
+        root.style.setProperty('--accent-ink', accentInk(vals.accent, vals.theme === 'dark'));
+        root.setAttribute('data-theme', vals.theme);
+      }
+    };
+
+    if (Date.now() - mountAt.current < 1500) {
+      lastApplied.current = vals;
+      if (!hasSite) applySite(false);
+      return;
     }
-    // Keep the AI loop's accent in sync
-    const al = document.getElementById('aiLoopFrame');
-    if (al) {
-      const wantLoop = 'AI%20Loop.html?accent=' + encodeURIComponent(t.accent);
-      if (al.getAttribute('src') !== wantLoop) al.setAttribute('src', wantLoop);
-    }
+
+    if (!changed) return;
+    lastApplied.current = vals;
+    applySite(true);
   }, [t]);
 
   return (

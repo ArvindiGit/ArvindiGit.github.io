@@ -28,6 +28,21 @@
       <a href="#contact"><span class="tick"></span>Contact</a>
     </nav>
 
+    <div class="theme-controls" id="themeControls">
+      <p class="foot-label">// THEME</p>
+      <div class="theme-row">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <span class="theme-knob"></span>
+        </button>
+        <div class="accent-dots" id="accentDots">
+          <button type="button" data-accent="#6CA0DC" style="background: #6CA0DC;" aria-label="Blue accent"></button>
+          <button type="button" data-accent="#1F8A5B" style="background: #1F8A5B;" aria-label="Green accent"></button>
+          <button type="button" data-accent="#D97757" style="background: #D97757;" aria-label="Coral accent"></button>
+          <button type="button" data-accent="#7A5AE0" style="background: #7A5AE0;" aria-label="Violet accent"></button>
+        </div>
+      </div>
+    </div>
+
     <div class="side-foot">
       <p class="foot-label">// LINKS</p>
       <a href="https://www.linkedin.com/in/arvind-prajapati-68954233a/" target="_blank" rel="noopener">LinkedIn</a>
@@ -443,6 +458,74 @@
     window.addEventListener('scroll', update, { passive: true });
     window.addEventListener('resize', update, { passive: true });
     update();
+  })();
+
+  // On-page theme + accent controls (persisted, shared with Tweaks)
+  (function () {
+    var KEY = 'arvind-site-prefs';
+
+    function accentInk(hex, dark) {
+      if (dark) return hex;
+      var n = parseInt(hex.slice(1), 16);
+      var r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+      var f = 0.62;
+      return 'rgb(' + Math.round(r * f) + ', ' + Math.round(g * f) + ', ' + Math.round(b * f) + ')';
+    }
+
+    function syncUI(theme, accent) {
+      var toggle = document.getElementById('themeToggle');
+      if (toggle) toggle.classList.toggle('on', theme === 'dark');
+      document.querySelectorAll('#accentDots button').forEach(function (b) {
+        b.classList.toggle('active', b.getAttribute('data-accent').toLowerCase() === accent.toLowerCase());
+      });
+    }
+
+    function apply(theme, accent, persist) {
+      var root = document.documentElement;
+      root.setAttribute('data-theme', theme);
+      root.style.setProperty('--accent', accent);
+      root.style.setProperty('--accent-ink', accentInk(accent, theme === 'dark'));
+      syncUI(theme, accent);
+      // Keep the video iframes' accent in sync
+      var iv = document.getElementById('introVideoFrame');
+      if (iv) {
+        var wantIv = 'Intro%20Video.html?controls=0&accent=' + encodeURIComponent(accent);
+        if (iv.getAttribute('src') !== wantIv) iv.setAttribute('src', wantIv);
+      }
+      var al = document.getElementById('aiLoopFrame');
+      if (al) {
+        var wantAl = 'AI%20Loop.html?accent=' + encodeURIComponent(accent);
+        if (al.getAttribute('src') !== wantAl) al.setAttribute('src', wantAl);
+      }
+      if (persist) {
+        try { localStorage.setItem(KEY, JSON.stringify({ theme: theme, accent: accent })); } catch (e) {}
+      }
+    }
+
+    window.__applySitePrefs = apply;
+
+    var state = { theme: 'light', accent: '#6CA0DC' };
+    try {
+      var saved = JSON.parse(localStorage.getItem(KEY) || 'null');
+      if (saved && saved.theme) state.theme = saved.theme;
+      if (saved && saved.accent) state.accent = saved.accent;
+    } catch (e) {}
+    apply(state.theme, state.accent, false);
+
+    var toggle = document.getElementById('themeToggle');
+    if (toggle) {
+      toggle.addEventListener('click', function () {
+        state.theme = state.theme === 'dark' ? 'light' : 'dark';
+        apply(state.theme, state.accent, true);
+      });
+    }
+
+    document.querySelectorAll('#accentDots button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        state.accent = b.getAttribute('data-accent');
+        apply(state.theme, state.accent, true);
+      });
+    });
   })();
 
   // Typed sidebar role (terminal style)

@@ -134,8 +134,81 @@ a { color: inherit; }
 .side-nav a.active { color: var(--ink); }
 .side-nav a.active .tick { width: 44px; background: var(--accent); height: 2px; }
 
-.sidebar .side-foot {
+/* ---------- on-page theme controls ---------- */
+
+.theme-controls {
   margin-top: auto;
+  padding-bottom: 26px;
+}
+
+.theme-controls .foot-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--ink-faint);
+  margin: 0 0 12px 0;
+}
+
+.theme-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.theme-toggle {
+  position: relative;
+  width: 54px;
+  height: 28px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  cursor: pointer;
+  padding: 0;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.theme-toggle:hover { border-color: var(--accent); }
+
+.theme-toggle .theme-knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #f5bd4f;
+  transition: left 0.3s cubic-bezier(0.22, 1, 0.36, 1), background 0.3s ease;
+}
+
+.theme-toggle.on .theme-knob {
+  left: 29px;
+  background: var(--accent);
+}
+
+.accent-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.accent-dots button {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.accent-dots button:hover { transform: scale(1.18); }
+
+.accent-dots button.active {
+  border-color: var(--bg);
+  box-shadow: 0 0 0 2px var(--ink-soft);
+  transform: scale(1.12);
+}
+
+.sidebar .side-foot {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -747,6 +820,22 @@ a { color: inherit; }
   .side-nav { flex-direction: row; flex-wrap: wrap; gap: 10px 22px; }
   .side-nav a .tick { display: none; }
   .sidebar .side-foot { display: none; }
+
+  /* theme controls become a floating pill on mobile */
+  .theme-controls {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 200;
+    margin: 0;
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    box-shadow: 0 8px 28px rgba(22, 24, 29, 0.14);
+  }
+  .theme-controls .foot-label { display: none; }
+  .theme-row { gap: 12px; }
 
   .main { padding-top: 40px; }
   .story-row, .story-row.flip { grid-template-columns: 1fr; gap: 28px; }

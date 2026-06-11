@@ -366,7 +366,7 @@ function Stage({
     if (!stageRef.current) return;
     const el = stageRef.current;
     const measure = () => {
-      const barH = controls ? 44 : 0; // playback bar height
+      const barH = controls ? 44 : 0; // playback bar height (hidden when controls=false)
       const s = Math.min(
         el.clientWidth / width,
         (el.clientHeight - barH) / height
@@ -409,12 +409,6 @@ function Stage({
       lastTsRef.current = null;
     };
   }, [playing, duration, loop]);
-
-  // Debug/verification hook: window.__stageSeek(t) pauses and jumps the playhead
-  React.useEffect(() => {
-    window.__stageSeek = (t) => { setPlaying(false); setTime(clamp(t, 0, duration)); };
-    return () => { delete window.__stageSeek; };
-  }, [duration]);
 
   // Keyboard: space = play/pause, ← → = seek
   React.useEffect(() => {
