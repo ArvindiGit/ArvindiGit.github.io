@@ -430,6 +430,89 @@
     })();
   })();
 
+  // Scroll progress bar
+  (function () {
+    var bar = document.createElement('div');
+    bar.id = 'scrollProgress';
+    document.body.appendChild(bar);
+    function update() {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var f = max > 0 ? window.scrollY / max : 0;
+      bar.style.transform = 'scaleX(' + Math.min(1, Math.max(0, f)).toFixed(4) + ')';
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+    update();
+  })();
+
+  // Typed sidebar role (terminal style)
+  (function () {
+    var el = document.querySelector('.brand-role');
+    if (!el) return;
+    var full = el.textContent;
+    var caret = document.createElement('span');
+    caret.className = 'type-caret';
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      el.appendChild(caret);
+      return;
+    }
+    el.textContent = '';
+    el.appendChild(caret);
+    var i = 0;
+    (function type() {
+      if (i <= full.length) {
+        el.childNodes[0] && el.childNodes[0].nodeType === 3
+          ? el.childNodes[0].nodeValue = full.slice(0, i)
+          : el.insertBefore(document.createTextNode(full.slice(0, i)), caret);
+        i++;
+        setTimeout(type, 55 + Math.random() * 70);
+      }
+    })();
+  })();
+
+  // Stagger delays for chips and bullet points
+  (function () {
+    document.querySelectorAll('.reveal').forEach(function (block) {
+      var kids = block.querySelectorAll('.chip, .xp-points li');
+      kids.forEach(function (el, i) {
+        el.style.setProperty('--d', (0.06 * i).toFixed(2) + 's');
+      });
+    });
+  })();
+
+  // Shared: mark an element revealed, then "settle" it shortly after so the
+  // final state no longer depends on a CSS transition completing (transitions
+  // can stall in throttled/offscreen contexts like screenshot capture).
+  function markIn(el) {
+    if (!el.classList.contains('in')) el.classList.add('in');
+    if (!el.__settleT) {
+      el.__settleT = setTimeout(function () { el.classList.add('settled'); }, 1300);
+    }
+  }
+  window.__markIn = markIn;
+
+  // Kicker rules draw in on scroll
+  (function () {
+    var kickers = document.querySelectorAll('.kicker');
+    try {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            markIn(e.target);
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      kickers.forEach(function (k) { io.observe(k); });
+    } catch (err) {
+      kickers.forEach(function (k) { markIn(k); });
+    }
+    // fail-safe
+    setTimeout(function () {
+      kickers.forEach(function (k) { markIn(k); });
+    }, 3000);
+  })();
+
   // Reveal-on-scroll (fail-safe: never leave content hidden)
   (function () {
     var els = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
@@ -439,12 +522,12 @@
       els.forEach(function (el) {
         if (el.classList.contains('in')) return;
         var r = el.getBoundingClientRect();
-        if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('in');
+        if (r.top < window.innerHeight && r.bottom > 0) markIn(el);
       });
     }
 
     function showAll() {
-      els.forEach(function (el) { el.classList.add('in'); });
+      els.forEach(function (el) { markIn(el); });
     }
 
     var io = null;
@@ -453,7 +536,7 @@
         ioFired = true;
         entries.forEach(function (e) {
           if (e.isIntersecting) {
-            e.target.classList.add('in');
+            markIn(e.target);
             io.unobserve(e.target);
           }
         });
