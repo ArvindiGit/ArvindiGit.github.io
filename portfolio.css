@@ -594,32 +594,38 @@ a { color: inherit; }
   background: var(--bg);
 }
 
-/* Published app cards: icon and product details read as one compact header. */
+/* Published app cards: a single product header keeps the icon and name together. */
 .app-card {
   position: relative;
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  grid-template-rows: auto auto auto;
+  column-gap: 16px;
+  row-gap: 0;
   padding: 22px;
 }
 
 .app-card .app-icon {
-  float: left;
+  float: none;
+  grid-column: 1;
+  grid-row: 1;
   width: 64px;
   height: 64px;
-  margin: 0 16px 16px 0;
+  margin: 0;
   border-radius: 14px;
 }
 
 .app-card .project-head {
+  grid-column: 2;
+  grid-row: 1;
   display: block;
-  min-height: 80px;
+  align-self: center;
+  min-height: 0;
   margin: 0;
-  padding: 4px 32px 0 0;
+  padding: 0;
 }
 
-.app-card .project-index {
-  position: absolute;
-  top: 26px;
-  right: 22px;
-}
+.app-card .project-index { display: none; }
 
 .app-card .project-head h3 {
   font-size: 20px;
@@ -629,11 +635,15 @@ a { color: inherit; }
 .app-card .project-role { margin-top: 5px; }
 
 .app-card .project-desc {
-  clear: both;
-  margin: 10px 0 18px;
+  grid-column: 1 / -1;
+  grid-row: 2;
+  clear: none;
+  margin: 20px 0 18px;
 }
 
 .app-card .card-foot {
+  grid-column: 1 / -1;
+  grid-row: 3;
   flex-direction: column;
   align-items: flex-start;
   gap: 14px;
@@ -646,21 +656,18 @@ a { color: inherit; }
 }
 
 @media (max-width: 480px) {
+  .app-card {
+    grid-template-columns: 56px minmax(0, 1fr);
+    column-gap: 14px;
+  }
+
+  .app-card .app-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 13px;
+  }
+
   .app-card .project-head h3 { font-size: 18px; }
-}
-
-.project.card .project-head { gap: 12px; margin-bottom: 10px; grid-template-columns: auto 1fr; }
-
-.project.card h3 { font-size: 18px; }
-
-.project.card .project-desc { font-size: 15px; flex: 1; }
-
-.card-foot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: 6px;
 }
 
 /* AI section */
