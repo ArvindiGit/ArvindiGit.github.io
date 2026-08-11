@@ -594,6 +594,61 @@ a { color: inherit; }
   background: var(--bg);
 }
 
+/* Published app cards: icon and product details read as one compact header. */
+.app-card {
+  position: relative;
+  padding: 22px;
+}
+
+.app-card .app-icon {
+  float: left;
+  width: 64px;
+  height: 64px;
+  margin: 0 16px 16px 0;
+  border-radius: 14px;
+}
+
+.app-card .project-head {
+  display: block;
+  min-height: 80px;
+  margin: 0;
+  padding: 4px 32px 0 0;
+}
+
+.app-card .project-index {
+  position: absolute;
+  top: 26px;
+  right: 22px;
+}
+
+.app-card .project-head h3 {
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+.app-card .project-role { margin-top: 5px; }
+
+.app-card .project-desc {
+  clear: both;
+  margin: 10px 0 18px;
+}
+
+.app-card .card-foot {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  margin-top: auto;
+}
+
+.app-card .card-foot .project-live {
+  padding-bottom: 2px;
+  border-bottom-color: var(--line);
+}
+
+@media (max-width: 480px) {
+  .app-card .project-head h3 { font-size: 18px; }
+}
+
 .project.card .project-head { gap: 12px; margin-bottom: 10px; grid-template-columns: auto 1fr; }
 
 .project.card h3 { font-size: 18px; }
