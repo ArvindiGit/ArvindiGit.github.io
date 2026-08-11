@@ -594,56 +594,58 @@ a { color: inherit; }
   background: var(--bg);
 }
 
-/* Published app cards: a single product header keeps the icon and name together. */
+/* Published app cards: icon, name, and platform metadata share one product header. */
 .project.card.app-card {
-  position: relative;
-  display: grid;
-  grid-template-columns: 64px minmax(0, 1fr);
-  grid-template-rows: auto auto auto;
-  column-gap: 16px;
-  row-gap: 0;
+  display: flex;
   padding: 22px;
 }
 
-.app-card .app-icon {
-  float: none;
-  grid-column: 1;
-  grid-row: 1;
-  width: 64px;
-  height: 64px;
-  margin: 0;
-  border-radius: 14px;
-}
-
 .app-card .project-head {
-  grid-column: 2;
-  grid-row: 1;
   display: block;
-  align-self: center;
   min-height: 0;
   margin: 0;
   padding: 0;
 }
 
-.app-card .project-index { display: none; }
+.app-card .project-head > div {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: 16px;
+  align-items: center;
+}
+
+.app-card .app-icon {
+  grid-column: 1;
+  grid-row: 1 / -1;
+  width: 64px;
+  height: 64px;
+  margin: 0;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+}
 
 .app-card .project-head h3 {
+  grid-column: 2;
+  grid-row: 1;
   font-size: 20px;
   line-height: 1.25;
+  margin: 0;
 }
 
-.app-card .project-role { margin-top: 5px; }
-
-.app-card .project-desc {
-  grid-column: 1 / -1;
+.app-card .project-role {
+  grid-column: 2;
   grid-row: 2;
-  clear: none;
-  margin: 20px 0 18px;
+  margin: 5px 0 0;
 }
+
+.app-card .project-index { display: none; }
+
+.app-card .project-desc { margin: 20px 0 18px; }
 
 .app-card .card-foot {
-  grid-column: 1 / -1;
-  grid-row: 3;
   flex-direction: column;
   align-items: flex-start;
   gap: 14px;
@@ -656,7 +658,7 @@ a { color: inherit; }
 }
 
 @media (max-width: 480px) {
-  .app-card {
+  .app-card .project-head > div {
     grid-template-columns: 56px minmax(0, 1fr);
     column-gap: 14px;
   }
