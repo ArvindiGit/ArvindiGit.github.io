@@ -595,7 +595,7 @@ a { color: inherit; }
 }
 
 /* Published app cards: a single product header keeps the icon and name together. */
-.app-card {
+.project.card.app-card {
   position: relative;
   display: grid;
   grid-template-columns: 64px minmax(0, 1fr);
